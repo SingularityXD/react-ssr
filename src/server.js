@@ -12,6 +12,8 @@ import createStore, { initializeSession } from "./store";
 
 const app = express();
 
+app.set( "view engine", "pug" );
+app.set( "views", path.resolve( __dirname, "views" ) );
 app.use( express.static( path.resolve( __dirname, "../dist" ) ) );
 
 app.get( "/*", ( req, res ) => {
@@ -38,32 +40,8 @@ app.get( "/*", ( req, res ) => {
         const reactDom = renderToString( jsx );
         const reduxState = store.getState( );
         const helmetData = Helmet.renderStatic( );
-
-        res.writeHead( 200, { "Content-Type": "text/html" } );
-        res.end( htmlTemplate( reactDom, reduxState, helmetData ) );
+        res.render( "index", { reactDom, reduxState, helmetData } );
     } );
 } );
 
-app.listen( 2048 );
-
-function htmlTemplate( reactDom, reduxState, helmetData ) {
-    return `
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="utf-8">
-            ${ helmetData.title.toString( ) }
-            ${ helmetData.meta.toString( ) }
-            <title>React SSR</title>
-        </head>
-        
-        <body>
-            <div id="app">${ reactDom }</div>
-            <script>
-                window.REDUX_DATA = ${ JSON.stringify( reduxState ) }
-            </script>
-            <script src="./app.bundle.js"></script>
-        </body>
-        </html>
-    `;
-}
+app.listen( 2019 );
