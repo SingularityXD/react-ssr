@@ -23,10 +23,10 @@ app.get( "/*", ( req, res ) => {
 
     const dataRequirements =
         routes
-            .filter( route => matchPath( req.url, route ) ) // filter matching paths
-            .map( route => route.component ) // map to components
-            .filter( comp => comp.serverFetch ) // check if components have data requirement
-            .map( comp => store.dispatch( comp.serverFetch( ) ) ); // dispatch data requirement
+            .filter( route => matchPath( req.url, route ) ) // 匹配路径
+            .map( route => route.component ) // 选中组件
+            .filter( comp => comp.serverFetch ) // 检测组件是否需要拉取数据
+            .map( comp => store.dispatch( comp.serverFetch( ) ) ); // 发起action拉取对应数据存入store
 
     Promise.all( dataRequirements ).then( ( ) => {
         const jsx = (

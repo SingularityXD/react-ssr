@@ -5,5 +5,5 @@ html
         title React SSR
     body
         #app #{reactDom}
-        script window.REDUX_DATA =#{JSON.stringify( reduxState )}
+        script window.REDUX_DATA = #{JSON.stringify( reduxState )}
         script(src="./app.bundle.js")
