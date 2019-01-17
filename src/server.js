@@ -5,7 +5,6 @@ import React from "react";
 import { renderToString } from "react-dom/server";
 import { StaticRouter, matchPath } from "react-router-dom";
 import { Provider as ReduxProvider } from "react-redux";
-import Helmet from "react-helmet";
 import routes from "./routes";
 import Layout from "./components/Layout";
 import createStore, { initializeSession } from "./store";
@@ -39,8 +38,7 @@ app.get( "/*", ( req, res ) => {
         );
         const reactDom = renderToString( jsx );
         const reduxState = store.getState( );
-        const helmetData = Helmet.renderStatic( );
-        res.render( "index", { reactDom, reduxState, helmetData } );
+        res.render( "index", { reactDom, reduxState } );
     } );
 } );
 
