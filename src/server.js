@@ -37,7 +37,7 @@ app.get( "/*", ( req, res ) => {
             </ReduxProvider>
         );
         const reactDom = renderToString( jsx );
-        const reduxState = store.getState( );
+        const reduxState = JSON.stringify( store.getState( ) );
         res.render( "index", { reactDom, reduxState } );
     } );
 } );
